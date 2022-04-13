@@ -15,10 +15,10 @@ import pytest
             }
     )
 )
-def test_get_one(director_service, data):
-    director_service.dao.get_one.return_value = data
+def test_get_one(genre_service, data):
+    genre_service.dao.get_one.return_value = data
 
-    assert director_service.get_one(1) == data
+    assert genre_service.get_one(1) == data
 
 
 @pytest.mark.parametrize(
@@ -40,9 +40,9 @@ def test_get_one(director_service, data):
             ),
     ),
 )
-def test_get_all(director_service, length, data):
-    director_service.dao.get_all.return_value = data
-    test_result = director_service.get_all()
+def test_get_all(genre_service, length, data):
+    genre_service.dao.get_all.return_value = data
+    test_result = genre_service.get_all()
     assert isinstance(test_result, list)
     assert len(test_result) == length
     assert test_result == data
@@ -64,11 +64,11 @@ def test_get_all(director_service, length, data):
             ),
     )
 )
-def test_partially_update(director_service, original_data, modified_data):
-    director_service.dao.get_one.return_value = original_data
-    director_service.partially_update(modified_data)
+def test_partially_update(genre_service, original_data, modified_data):
+    genre_service.dao.get_one.return_value = original_data
+    genre_service.partially_update(modified_data)
 
-    director_service.dao.update.assert_called_once_with(modified_data)
+    genre_service.dao.update.assert_called_once_with(modified_data)
 
 @pytest.mark.parametrize(
     'data', (
@@ -78,17 +78,17 @@ def test_partially_update(director_service, original_data, modified_data):
             },
     )
 )
-def test_create(director_service, data):
-    director_service.dao.create(data)
-    director = director_service.create(data)
-    assert director.id is not None
+def test_create(genre_service, data):
+    genre_service.dao.create(data)
+    genre = genre_service.create(data)
+    assert genre.id is not None
 
-def test_delete(director_service):
-    director_service.delete(1)
-    director_service.dao.delete.assert_called_once_with(1)
+def test_delete(genre_service):
+    genre_service.delete(1)
+    genre_service.dao.delete.assert_called_once_with(1)
 
 
 
-def test_update(director_service):
-    director_service.update({})
-    director_service.dao.update.assert_called_once_with({})
+def test_update(genre_service):
+    genre_service.update({})
+    genre_service.dao.update.assert_called_once_with({})
